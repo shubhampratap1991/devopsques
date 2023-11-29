@@ -1,4 +1,4 @@
-# 1 Creating Static website
+# 1. Creating Static website
 
 ## Step 1: Create a bucket
 
@@ -26,9 +26,9 @@
 
 ![Alt text](6.png?raw=true "Optional Title")
 
-=============================================================================
+# =============================================================================
 
-# 2 Mount an s3 bucket to EC2 server
+# 2. Mount an s3 bucket to EC2 server
 
 ## Create an EC2 Linux instance
 
