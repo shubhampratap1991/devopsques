@@ -1,13 +1,18 @@
 Creating Static website
 
 Step 1: Create a bucket
-![Alt text](devopsques/1.png?raw=true "Optional Title")
+![Alt text](3.png?raw=true "Optional Title")
 Step 2: Enable static website hosting
+![Alt text](4.png?raw=true "Optional Title")
 Step 3: Edit Block Public Access settings
+![Alt text](1.png?raw=true "Optional Title")
 Step 4: Add a bucket policy that makes your bucket content publicly available
+![Alt text](2.png?raw=true "Optional Title")
 Step 5: Configure an index document
+![Alt text](5.png?raw=true "Optional Title")
 Step 6: Configure an error document
 Step 7: Test your website endpoint
+![Alt text](1.png?raw=true "Optional Title")
 
 ==================================================
 
