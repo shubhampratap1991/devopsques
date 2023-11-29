@@ -1,4 +1,4 @@
-Creating Static website
+# Creating Static website
 
 ## Step 1: Create a bucket
 
