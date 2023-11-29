@@ -1,0 +1,82 @@
+---
+- name: Configure EC2 instance and create AMI
+  hosts: ec2_instance
+  become: yes
+  vars:
+    java_version: "11" 
+    download_url: https://dlcdn.apache.org/tomcat/tomcat-8/v8.5.96/bin/apache-tomcat-8.5.96.tar.gz
+    var_node: /home/ec2-user
+
+  tasks:
+
+    - name: Install Pip
+      yum:  
+        name: python3-pip 
+        state: present
+    - pip:
+        name: 
+          - "botocore" 
+          - "boto3"
+    - name: Update system packages
+      yum:
+        name: '*'
+        state: latest
+
+    - name: Node.js - Get script
+      get_url:
+        url: "http://rpm.nodesource.com/nsolid_setup_rpm.sh"
+        dest: "{{ var_node }}/nsolid_setup_rpm.sh"
+
+    - name: Node.js - Set execution permission to script
+      file:
+        path: "{{ var_node }}/nsolid_setup_rpm.sh"
+        mode: "u+x"
+
+    - name: Node.js - Execute installation script
+      shell: "{{ var_node }}/nsolid_setup_rpm.sh 21"
+
+    - name: Node.js - Remove installation script
+      file:
+       path: "{{ var_node}}/nsolid_setup_rpm.sh"
+       state: absent
+
+    - name: Node.js - Install Node.js
+      yum: name={{ item }} state=present update_cache=yes
+      with_items:
+       - nodejs
+
+    - name: Install Java
+      yum:
+        name: java-1.8.0-openjdk-devel
+        state: present
+
+    - name: tomcat - Install tomcat
+      yum: name={{ item }} state=present update_cache=yes
+      with_items:
+       - tomcat
+
+    - name: Enable and start Tomcat service
+      systemd:
+        name: tomcat
+        enabled: yes
+        state: started
+
+    - name: Pause to allow services to start
+      pause:
+        seconds: 10
+
+    - name: Create AMI
+      ec2_ami:
+        aws_access_key: ********** # cloud access key 
+        aws_secret_key: ********** # cloud secret key
+        name: "test-Custom-AMI1"
+        instance_id: "i-0473e3393b122549a"
+        wait: yes
+        region: "ap-southeast-2"
+        description: "Custom AMI with Node.js, Java, and Tomcat"
+        no_reboot: yes
+      register: ami
+
+    - name: Display the created AMI ID
+      debug:
+        var: ami.image_id
