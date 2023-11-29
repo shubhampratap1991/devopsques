@@ -69,3 +69,13 @@ s3fs-test-nov /home/ec2-user/bucket fuse.s3fs _netdev,allow_other 0 0
 ## Now, As you hit the aws s3 bucket, you should see the files that were present in your file system
 
  ![Alt text](7.png?raw=true "Optional Title")
+
+## ================================================================
+
+# 3. Ansible Task 
+  Use ansible to create an AMI with nodejs,java and tomcat installed.
+  Please refer to Ansible folder
+# 4. Terraform Task
+  Write terraform to use that AMI build to create Launch configurations and Auto-scaling groups.
+  Please refer to Terraform folder
+ 
